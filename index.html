@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		A Little to-shop list
+	</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</head>
+<body background="black">
+	<div class="container">
+		<script type="text/javascript">
+		var app=angular.module("myList",[])
+		app.controller("myCtrl",function($scope) {
+			$scope.products = ["MILK", "MEAT"];
+			$scope.addMore = function() {
+				$scope.errortext="";
+				if(!$scope.add){return;}
+				if($scope.products.indexOf($scope.add)==-1) {
+					$scope.products.push($scope.add);
+				} else {
+					$scope.errortext = "Already added";
+				}
+			}
+			$scope.remove = function(x) {
+				$scope.errortext = "";
+				$scope.products.splice(x,1);
+			}
+		});
+	</script>
+
+	<div class="jumbotron jumbotron-fluid">
+  		<div class="container">
+    		<h1 class="display-1">Shopping List</h1>
+  		</div>
+	</div>
+
+	<div ng-app="myList" ng-controller="myCtrl">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Items</th>
+					<th scope="col">Bought</th>
+				</tr>
+			</thead>
+			<tbody ng-repeat="x in products">
+				<tr>
+					
+					<td>{{x}}</td>
+					<td>
+						<span ng-click="remove($index)">x</span>
+					</td>
+				</tr>
+							
+			</tbody>
+					
+			
+			
+		</table>
+		<input type="text" id="jodo" onkeyup="this.value = this.value.toUpperCase();" ng-model="add">
+		<script type="text/javascript">
+			function ClearFields() {
+				document.getElementById("jodo").value = "";
+			}
+		</script>
+		<button type="reset" onclick="ClearFields();" ng-click="addMore()">ADD</button>
+		<p>{{errortext}}</p>
+	</div>
+	</div>
+	
+</body>
+</html>
